@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { db } from "~/server/db";
 
 const mockUrls = [
   "https://utfs.io/f/db21425c-42a1-43a5-ad7f-6eaab0d9457f-6oayex.png",
@@ -15,7 +16,10 @@ const mockImages = mockUrls.map((url, index) => ({
   id: index + 1,
 }));
 
-export default function HomePage() {
+export default async function HomePage() {
+  const posts = await db.query.posts.findMany();
+  
+  console.log(posts);
   return (
     <main className="px-6">
       <div className="flex flex-wrap gap-4">
